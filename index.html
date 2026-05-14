@@ -7,241 +7,161 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg:       #f5f4f0;
-    --surface:  #ffffff;
-    --surface2: #f9f8f5;
-    --border:   #e4e2da;
-    --border2:  #d0cec5;
-    --text:     #1a1917;
-    --text2:    #6b6860;
-    --text3:    #a8a69e;
-    --green:    #1e7a3e;
-    --green-bg: #edf7f1;
-    --green-br: #b8dfc7;
-    --red:      #b83232;
-    --red-bg:   #fdf0f0;
-    --red-br:   #f0c4c4;
-    --yellow:   #8a6200;
-    --yellow-bg:#fdf6e3;
-    --yellow-br:#e8d48a;
-    --blue:     #1a5ea8;
-    --blue-bg:  #edf3fc;
-    --blue-br:  #b3cef0;
+    --bg:        #f5f4f0;
+    --surface:   #ffffff;
+    --surface2:  #f9f8f5;
+    --border:    #e4e2da;
+    --border2:   #d0cec5;
+    --text:      #1a1917;
+    --text2:     #6b6860;
+    --text3:     #a8a69e;
+    --green:     #1e7a3e;
+    --green-bg:  #edf7f1;
+    --green-br:  #b8dfc7;
+    --red:       #b83232;
+    --red-bg:    #fdf0f0;
+    --red-br:    #f0c4c4;
+    --yellow:    #8a6200;
+    --yellow-bg: #fdf6e3;
+    --yellow-br: #e8d48a;
+    --blue:      #1a5ea8;
+    --blue-bg:   #edf3fc;
+    --blue-br:   #b3cef0;
+    --purple:    #5a2ea8;
+    --purple-bg: #f0eafc;
+    --purple-br: #c9b4ef;
     --mono: 'DM Mono', monospace;
     --sans: 'DM Sans', sans-serif;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    font-size: 14px;
-    line-height: 1.65;
-    min-height: 100vh;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; line-height: 1.65; min-height: 100vh; }
   .wrap { max-width: 980px; margin: 0 auto; padding: 56px 32px 80px; }
 
-  /* Header */
-  .header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 24px;
-    align-items: start;
-    border-bottom: 1.5px solid var(--border2);
-    padding-bottom: 32px;
-    margin-bottom: 52px;
-  }
-
-  .eyebrow {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--text3);
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-  }
-
-  h1 {
-    font-size: 30px;
-    font-weight: 300;
-    letter-spacing: -.025em;
-    color: var(--text);
-    line-height: 1.18;
-    margin-bottom: 14px;
-  }
-
+  /* ── Header ── */
+  .header { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: start; border-bottom: 1.5px solid var(--border2); padding-bottom: 32px; margin-bottom: 52px; }
+  .eyebrow { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: .14em; text-transform: uppercase; margin-bottom: 14px; }
+  h1 { font-size: 30px; font-weight: 300; letter-spacing: -.025em; color: var(--text); line-height: 1.18; margin-bottom: 14px; }
   h1 em { font-style: normal; font-family: var(--mono); font-weight: 500; color: var(--blue); }
-
   .header-desc { font-size: 13px; color: var(--text2); max-width: 500px; line-height: 1.65; }
-
   .header-pills { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; padding-top: 4px; }
-
   .pill { font-family: var(--mono); font-size: 10px; padding: 4px 10px; border-radius: 20px; letter-spacing: .04em; white-space: nowrap; }
   .pill-n { background: var(--surface2); border: 1px solid var(--border2); color: var(--text2); }
-  .pill-b { background: var(--blue-bg);  border: 1px solid var(--blue-br);  color: var(--blue); }
-  .pill-r { background: var(--red-bg);   border: 1px solid var(--red-br);   color: var(--red); }
+  .pill-g { background: var(--green-bg); border: 1px solid var(--green-br); color: var(--green); }
+  .pill-y { background: var(--yellow-bg); border: 1px solid var(--yellow-br); color: var(--yellow); }
 
-  /* Section */
-  .section { margin-bottom: 52px; }
+  /* ── Section ── */
+  .section { margin-bottom: 52px; opacity: 0; transform: translateY(10px); animation: up .35s ease forwards; }
+  .section:nth-child(1){animation-delay:.04s} .section:nth-child(2){animation-delay:.09s}
+  .section:nth-child(3){animation-delay:.13s} .section:nth-child(4){animation-delay:.17s}
+  .section:nth-child(5){animation-delay:.21s} .section:nth-child(6){animation-delay:.25s}
+  .section:nth-child(7){animation-delay:.29s}
+  @keyframes up { to { opacity:1; transform:translateY(0); } }
   .sec-head { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
   .sec-n { font-family: var(--mono); font-size: 10px; color: var(--text3); width: 20px; }
   h2 { font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text2); }
   .sec-rule { flex: 1; height: 1px; background: var(--border); }
 
-  /* Two col */
+  /* ── Cards ── */
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; }
-
-  .card-head {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border);
-  }
-
-  .card-name { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--text); }
+  .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .card-name { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--text); display: flex; align-items: center; gap: 7px; }
 
   .badge { font-family: var(--mono); font-size: 10px; padding: 3px 8px; border-radius: 4px; letter-spacing: .05em; }
   .b-blue   { background: var(--blue-bg);   border: 1px solid var(--blue-br);   color: var(--blue); }
   .b-yellow { background: var(--yellow-bg); border: 1px solid var(--yellow-br); color: var(--yellow); }
   .b-green  { background: var(--green-bg);  border: 1px solid var(--green-br);  color: var(--green); }
   .b-red    { background: var(--red-bg);    border: 1px solid var(--red-br);    color: var(--red); }
+  .b-purple { background: var(--purple-bg); border: 1px solid var(--purple-br); color: var(--purple); }
 
   .list-lbl { font-family: var(--mono); font-size: 9px; color: var(--text3); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; }
-
-  ul.ilist { list-style: none; margin-bottom: 18px; }
-  ul.ilist li {
-    display: flex; gap: 9px; padding: 6px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 12.5px; color: var(--text); line-height: 1.55;
-  }
+  ul.ilist { list-style: none; margin-bottom: 16px; }
+  ul.ilist:last-child { margin-bottom: 0; }
+  ul.ilist li { display: flex; gap: 9px; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 12.5px; color: var(--text); line-height: 1.55; }
   ul.ilist li:last-child { border-bottom: none; }
-
   .mk { font-family: var(--mono); font-size: 11px; flex-shrink: 0; width: 14px; padding-top: 2px; }
-  .mg { color: var(--green); }
-  .mr { color: var(--red); }
-  .my { color: var(--yellow); }
+  .mg { color: var(--green); } .mr { color: var(--red); } .my { color: var(--yellow); }
 
-  /* Geometry breakdown table */
+  code { font-family: var(--mono); font-size: 11px; background: var(--surface2); border: 1px solid var(--border2); padding: 1px 5px; border-radius: 3px; color: var(--text2); }
+
+  /* ── Tables ── */
   .tbl-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-
   table { width: 100%; border-collapse: collapse; }
-
-  th {
-    font-family: var(--mono); font-size: 10px; color: var(--text3);
-    letter-spacing: .08em; text-transform: uppercase;
-    padding: 10px 14px; background: var(--surface2);
-    border-bottom: 1px solid var(--border); text-align: left;
-  }
-
-  td {
-    padding: 10px 14px; font-size: 12.5px;
-    border-bottom: 1px solid var(--border);
-    color: var(--text2); vertical-align: top;
-  }
-
+  th { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: .08em; text-transform: uppercase; padding: 10px 14px; background: var(--surface2); border-bottom: 1px solid var(--border); text-align: left; }
+  th.tc { text-align: center; }
+  th.tr { text-align: right; }
+  td { padding: 10px 14px; font-size: 12.5px; border-bottom: 1px solid var(--border); color: var(--text2); vertical-align: top; }
   tr:last-child td { border-bottom: none; }
-  tr.hl td { background: #f0f4ff; }
-
-  td.label { color: var(--text); font-weight: 500; white-space: nowrap; }
+  td.label { color: var(--text); font-weight: 500; }
   td.cn { text-align: center; font-family: var(--mono); font-size: 12px; }
   td.rn { text-align: right; font-family: var(--mono); font-size: 12px; white-space: nowrap; }
-  td.sm { color: var(--text2); font-size: 12px; }
-  td.verdict { font-size: 12px; line-height: 1.5; }
+  td.sm { font-size: 12px; color: var(--text2); }
+  td.vd { font-size: 12px; line-height: 1.5; color: var(--text); }
+  tr.hl  td { background: #f6faf7; }
+  tr.hl2 td { background: #fdf6e3; }
+  tr.hl3 td { background: #fdf0f0; }
+  tr.tot td { background: var(--surface2); font-weight: 500; border-top: 1px solid var(--border2); border-bottom: none; }
 
   .shi { color: var(--green); font-weight: 500; }
   .smd { color: var(--yellow); font-weight: 500; }
   .slo { color: var(--red); font-weight: 500; }
-
   .bi { display: inline-block; height: 3px; border-radius: 2px; vertical-align: middle; margin-left: 5px; opacity: .5; }
 
-  /* Geometry verdict chips */
-  .vchip { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 3px; white-space: nowrap; }
-  .vc-ok   { background: var(--green-bg);  border: 1px solid var(--green-br);  color: var(--green); }
-  .vc-warn { background: var(--yellow-bg); border: 1px solid var(--yellow-br); color: var(--yellow); }
-  .vc-fail { background: var(--red-bg);    border: 1px solid var(--red-br);    color: var(--red); }
+  /* ── Verdict chips ── */
+  .vchip { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 2px 8px; border-radius: 3px; white-space: nowrap; margin: 2px 0; }
+  .vc-ok     { background: var(--green-bg);  border: 1px solid var(--green-br);  color: var(--green); }
+  .vc-warn   { background: var(--yellow-bg); border: 1px solid var(--yellow-br); color: var(--yellow); }
+  .vc-fail   { background: var(--red-bg);    border: 1px solid var(--red-br);    color: var(--red); }
+  .vc-test   { background: var(--purple-bg); border: 1px solid var(--purple-br); color: var(--purple); }
 
-  /* Steps */
-  .step { display: flex; gap: 12px; margin-bottom: 15px; align-items: flex-start; }
-  .sn {
-    font-family: var(--mono); font-size: 10px; color: var(--text3);
-    background: var(--surface2); border: 1px solid var(--border); border-radius: 4px;
-    width: 20px; height: 20px; display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0; margin-top: 2px;
-  }
-  .st  { font-size: 12.5px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
-  .sd  { font-size: 12px; color: var(--text2); line-height: 1.55; }
+  /* ── Effort chips ── */
+  .chip { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 3px; }
+  .c-lo { background: var(--green-bg);  border: 1px solid var(--green-br);  color: var(--green); }
+  .c-md { background: var(--yellow-bg); border: 1px solid var(--yellow-br); color: var(--yellow); }
+  .c-hi { background: var(--red-bg);    border: 1px solid var(--red-br);    color: var(--red); }
+
+  /* ── Steps ── */
+  .step { display: flex; gap: 12px; margin-bottom: 14px; align-items: flex-start; }
+  .step:last-child { margin-bottom: 0; }
+  .sn { font-family: var(--mono); font-size: 10px; color: var(--text3); background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .st { font-size: 12.5px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+  .sd { font-size: 12px; color: var(--text2); line-height: 1.55; }
   .tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
   .tag { font-family: var(--mono); font-size: 9px; padding: 2px 7px; border-radius: 3px; letter-spacing: .04em; }
   .td { background: var(--blue-bg);   border: 1px solid var(--blue-br);   color: var(--blue); }
   .tp { background: var(--yellow-bg); border: 1px solid var(--yellow-br); color: var(--yellow); }
   .ti { background: var(--green-bg);  border: 1px solid var(--green-br);  color: var(--green); }
+  .tt { background: var(--purple-bg); border: 1px solid var(--purple-br); color: var(--purple); }
 
-  /* Effort chips */
-  .chip { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 3px; }
-  .c-lo { background: var(--green-bg);  border: 1px solid var(--green-br);  color: var(--green); }
-  .c-md { background: var(--yellow-bg); border: 1px solid var(--yellow-br); color: var(--yellow); }
-  .c-hi { background: var(--red-bg);    border: 1px solid var(--red-br);    color: var(--red); }
-  tr.tot td { background: var(--surface2); font-weight: 500; border-top: 1px solid var(--border2); border-bottom: none; }
-
-  /* Note boxes */
-  .note-blue {
-    background: var(--blue-bg); border: 1px solid var(--blue-br);
-    border-radius: 8px; padding: 12px 16px; margin-top: 12px;
-    display: flex; gap: 10px; align-items: flex-start;
-  }
-  .note-yellow {
-    background: var(--yellow-bg); border: 1px solid var(--yellow-br);
-    border-radius: 8px; padding: 12px 16px; margin-top: 14px;
-    display: flex; gap: 10px;
-  }
-  .note-red {
-    background: var(--red-bg); border: 1px solid var(--red-br);
-    border-radius: 8px; padding: 12px 16px; margin-top: 12px;
-    display: flex; gap: 10px; align-items: flex-start;
-  }
+  /* ── Notes ── */
+  .note { border-radius: 8px; padding: 12px 16px; margin-top: 12px; display: flex; gap: 10px; align-items: flex-start; }
+  .note-b { background: var(--blue-bg);   border: 1px solid var(--blue-br); }
+  .note-y { background: var(--yellow-bg); border: 1px solid var(--yellow-br); }
+  .note-g { background: var(--green-bg);  border: 1px solid var(--green-br); }
+  .note-r { background: var(--red-bg);    border: 1px solid var(--red-br); }
   .ni { font-family: var(--mono); font-size: 11px; flex-shrink: 0; padding-top: 1px; }
-  .ni-b { color: var(--blue); }
-  .ni-y { color: var(--yellow); }
-  .ni-r { color: var(--red); }
-  .nt-b { font-size: 12px; color: #2a4a80; line-height: 1.6; }
-  .nt-y { font-size: 12px; color: #5a4400; line-height: 1.6; }
-  .nt-r { font-size: 12px; color: #7a2020; line-height: 1.6; }
+  .ni-b { color: var(--blue); } .ni-y { color: var(--yellow); }
+  .ni-g { color: var(--green); } .ni-r { color: var(--red); }
+  .nt { font-size: 12px; line-height: 1.6; }
+  .nt-b { color: #2a4a80; } .nt-y { color: #5a4400; }
+  .nt-g { color: #1a4a2e; } .nt-r { color: #7a2020; }
 
-  /* Conclusion */
+  /* ── Conclusion ── */
   .concl { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-  .vrow {
-    display: grid; grid-template-columns: 130px 1fr;
-    gap: 16px; padding: 16px 24px;
-    border-bottom: 1px solid var(--border); align-items: start;
-  }
+  .vrow { display: grid; grid-template-columns: 130px 1fr; gap: 16px; padding: 16px 24px; border-bottom: 1px solid var(--border); align-items: start; }
   .vrow:last-child { border-bottom: none; }
   .vlbl { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: .06em; text-transform: uppercase; padding-top: 2px; }
   .vtxt { font-size: 13px; color: var(--text); line-height: 1.65; }
-  .vtxt strong { font-weight: 500; color: var(--blue); }
-  .vtxt strong.warn { color: var(--red); }
-  .vtxt code {
-    font-family: var(--mono); font-size: 11px;
-    background: var(--surface2); border: 1px solid var(--border2);
-    padding: 1px 5px; border-radius: 3px; color: var(--text2);
-  }
-
-  /* Animate */
-  .section { opacity: 0; transform: translateY(10px); animation: up .35s ease forwards; }
-  .section:nth-child(1){animation-delay:.04s}
-  .section:nth-child(2){animation-delay:.09s}
-  .section:nth-child(3){animation-delay:.14s}
-  .section:nth-child(4){animation-delay:.19s}
-  .section:nth-child(5){animation-delay:.24s}
-  .section:nth-child(6){animation-delay:.29s}
-  @keyframes up { to { opacity:1; transform:translateY(0); } }
+  .vtxt strong   { font-weight: 500; color: var(--blue); }
+  .vtxt strong.g { font-weight: 500; color: var(--green); }
+  .vtxt strong.y { font-weight: 500; color: var(--yellow); }
+  .vtxt strong.r { font-weight: 500; color: var(--red); }
 
   @media(max-width:640px){
     .two-col{grid-template-columns:1fr;}
     .header{grid-template-columns:1fr;}
-    .header-pills{flex-direction:row;align-items:flex-start;}
+    .header-pills{flex-direction:row;align-items:flex-start;flex-wrap:wrap;}
     .vrow{grid-template-columns:1fr;gap:4px;}
     h1{font-size:24px;}
   }
@@ -253,161 +173,181 @@
   <!-- Header -->
   <header class="header">
     <div>
-      <div class="eyebrow">BIM Software Analysis · Production Stage · Rev 2</div>
+      <div class="eyebrow">BIM Software Analysis · Production Stage · Rev 4</div>
       <h1>Revit vs <em>Tekla</em><br>for CLT &amp; Glulam</h1>
       <p class="header-desc">
-        Updated analysis focusing on the core problem: modeling and exporting complex timber members
-        with fabrication-grade geometry for factory cutting. IFC must drive the machine, not just carry data.
+        Full comparison maintained. Context: Revit using Structural Framing throughout,
+        joint geometry controlled via team-managed void cuts verified before export.
+        IFC geometry must be fabrication-grade for factory cutting machine.
       </p>
     </div>
     <div class="header-pills">
-      <span class="pill pill-n">Complex members included</span>
-      <span class="pill pill-n">IFC geometry → cutting machine</span>
-      <span class="pill pill-r">Revit geometry: unreliable</span>
+      <span class="pill pill-n">Structural Framing throughout</span>
+      <span class="pill pill-g">Void cuts: team-controlled</span>
+      <span class="pill pill-y">Curved / tapered: needs test</span>
     </div>
   </header>
 
-  <!-- 01 The Core Problem -->
+  <!-- 01 Strengths & Weaknesses -->
   <div class="section">
-    <div class="sec-head"><span class="sec-n">01</span><h2>The Core Problem</h2><div class="sec-rule"></div></div>
+    <div class="sec-head"><span class="sec-n">01</span><h2>Strengths &amp; Weaknesses</h2><div class="sec-rule"></div></div>
     <div class="two-col">
+
       <div class="card">
         <div class="card-head">
           <span class="card-name">Revit</span>
-          <span class="badge b-red">Geometry issues</span>
+          <span class="badge b-blue">Autodesk</span>
         </div>
-        <div class="list-lbl">Modeling limitations</div>
+        <div class="list-lbl">Strengths</div>
         <ul class="ilist">
-          <li><span class="mk mr">−</span>No native timber object type — must use Structural Framing, Floor, Wall, or Generic Model as workarounds</li>
-          <li><span class="mk mr">−</span>Geometry engine is B-rep but not profile-based in the fabrication sense — curved members tessellate to <code style="font-family:var(--mono);font-size:11px;background:var(--surface2);border:1px solid var(--border2);padding:1px 5px;border-radius:3px">IfcFacetedBrep</code> on export</li>
-          <li><span class="mk mr">−</span>CLT panel layer stack is visual only — no real geometry per layer in the IFC solid</li>
-          <li><span class="mk mr">−</span>Notch, birdsmouth, step joint require void-cut families — boolean result unstable across instances, non-manifold geometry risk on export</li>
-          <li><span class="mk mr">−</span>Join behavior between members creates solid overlaps or gaps — unreliable in IFC output</li>
-          <li><span class="mk my">~</span>Straight rectangular glulam at simple connections: geometry acceptable but still needs verification per element</li>
+          <li><span class="mk mg">+</span>Structural Framing maps to <code>IfcBeam</code> / <code>IfcMember</code> correctly when configured</li>
+          <li><span class="mk mg">+</span>Team-controlled void cuts resolve joint geometry instability — solid verified before export</li>
+          <li><span class="mk mg">+</span>Open-source IFC exporter — full control over property set mapping and output schema</li>
+          <li><span class="mk mg">+</span>Strong API ecosystem (C#, pyRevit, Dynamo) — dev team can build tooling quickly</li>
+          <li><span class="mk mg">+</span>Best multi-discipline coordination (Arch + MEP + Structural in one platform)</li>
+          <li><span class="mk mg">+</span>Straight rectangular members: clean <code>IfcExtrudedAreaSolid</code> geometry on export</li>
         </ul>
-        <div class="list-lbl">IFC export</div>
+        <div class="list-lbl">Weaknesses</div>
         <ul class="ilist">
-          <li><span class="mk mr">−</span>Curved members lose axis/profile data — machine cannot extract centerline, radius, cross-section</li>
-          <li><span class="mk mr">−</span>Tapered beam taper parameters lost — only raw mesh geometry survives</li>
-          <li><span class="mk mr">−</span>Object type mapping unreliable: CLT wall may export as <code style="font-family:var(--mono);font-size:11px;background:var(--surface2);border:1px solid var(--border2);padding:1px 5px;border-radius:3px">IfcSlab</code> or <code style="font-family:var(--mono);font-size:11px;background:var(--surface2);border:1px solid var(--border2);padding:1px 5px;border-radius:3px">IfcProxy</code></li>
+          <li><span class="mk mr">−</span>Curved Structural Framing: high risk of <code>IfcFacetedBrep</code> tessellation on export — axis and profile data lost</li>
+          <li><span class="mk mr">−</span>Tapered beam: IFC geometry type depends on family construction method — needs testing</li>
+          <li><span class="mk mr">−</span>CLT layer stack is parametric data only — no per-layer solid geometry in IFC</li>
+          <li><span class="mk mr">−</span>No native timber joint catalog — all joint geometry requires manual void cut workflow</li>
+          <li><span class="mk my">~</span>No path to BTL/BTLX if CNC workflow is needed later</li>
         </ul>
       </div>
+
       <div class="card">
         <div class="card-head">
           <span class="card-name">Tekla</span>
-          <span class="badge b-green">Built for this</span>
+          <span class="badge b-yellow">Trimble</span>
         </div>
-        <div class="list-lbl">Modeling strengths</div>
+        <div class="list-lbl">Strengths</div>
         <ul class="ilist">
-          <li><span class="mk mg">+</span>Timber objects are native: curved member has a real centerline axis, not a hack</li>
-          <li><span class="mk mg">+</span>Tapered section is a native parameter — geometry is exact, not approximated</li>
-          <li><span class="mk mg">+</span>Timber joint catalog (birdsmouth, half-lap, dovetail, step joint) — built-in solid boolean, stable across instances</li>
-          <li><span class="mk mg">+</span>CLT panel modeled as layered object with actual geometry per layer</li>
-          <li><span class="mk mg">+</span>Member-to-member connections resolve correctly — no overlap/gap artifacts</li>
+          <li><span class="mk mg">+</span>Curved member: centerline axis + profile preserved in IFC — machine-readable</li>
+          <li><span class="mk mg">+</span>Tapered beam: native parametric solid — exact geometry, no approximation</li>
+          <li><span class="mk mg">+</span>Timber joint catalog built-in (birdsmouth, half-lap, step joint, dovetail) — stable boolean, no manual void workflow needed</li>
+          <li><span class="mk mg">+</span>CLT panel as layered object — real geometry per layer</li>
+          <li><span class="mk mg">+</span>Correct IFC type mapping native: <code>IfcBeam</code>, <code>IfcMember</code>, <code>IfcPlate</code></li>
+          <li><span class="mk mg">+</span>BTL/BTLX export available if CNC workflow is needed later</li>
+          <li><span class="mk mg">+</span>Auto part numbering (assembly mark, part mark) — shop drawings production-ready</li>
         </ul>
-        <div class="list-lbl">IFC export</div>
+        <div class="list-lbl">Weaknesses</div>
         <ul class="ilist">
-          <li><span class="mk mg">+</span>Curved member exports with axis geometry + solid body — machine can read centerline and profile</li>
-          <li><span class="mk mg">+</span>Correct IFC type mapping: <code style="font-family:var(--mono);font-size:11px;background:var(--surface2);border:1px solid var(--border2);padding:1px 5px;border-radius:3px">IfcBeam</code>, <code style="font-family:var(--mono);font-size:11px;background:var(--surface2);border:1px solid var(--border2);padding:1px 5px;border-radius:3px">IfcMember</code>, <code style="font-family:var(--mono);font-size:11px;background:var(--surface2);border:1px solid var(--border2);padding:1px 5px;border-radius:3px">IfcPlate</code> natively</li>
-          <li><span class="mk mg">+</span>Clean solid geometry — manifold, no flipped normals from boolean operations</li>
-          <li><span class="mk my">~</span>Schema uses Tekla conventions — factory partner needs to confirm their import workflow</li>
+          <li><span class="mk mr">−</span>IFC output uses Tekla schema conventions — factory partner reported inability to edit</li>
+          <li><span class="mk mr">−</span>Smaller API ecosystem — dev customization harder and slower</li>
+          <li><span class="mk mr">−</span>Weak multi-discipline coordination — requires Revit link for Arch/MEP</li>
+          <li><span class="mk my">~</span>Steeper learning curve if team is Revit-native</li>
         </ul>
       </div>
+
     </div>
   </div>
 
-  <!-- 02 Geometry Verdict by Member Type -->
+  <!-- 02 Geometry by Member Type -->
   <div class="section">
     <div class="sec-head"><span class="sec-n">02</span><h2>Geometry Verdict by Member Type</h2><div class="sec-rule"></div></div>
     <div class="tbl-wrap">
       <table>
         <thead>
           <tr>
-            <th style="width:22%">Member type</th>
-            <th style="width:28%">Revit</th>
-            <th style="width:28%">Tekla</th>
-            <th style="width:22%">Verdict</th>
+            <th style="width:20%">Member type</th>
+            <th style="width:32%">Revit — Structural Framing + void ctrl</th>
+            <th style="width:32%">Tekla</th>
+            <th style="width:16%">Status</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="label">Straight glulam<br><span style="font-weight:400;font-size:11px;color:var(--text3)">rectangular, simple cuts</span></td>
-            <td class="verdict">Structural Framing — geometry acceptable. Verify each export.</td>
-            <td class="verdict">Native timber member — clean solid, correct IFC type.</td>
-            <td class="cn"><span class="vchip vc-warn">Revit: caution</span><br><span class="vchip vc-ok" style="margin-top:4px">Tekla: ok</span></td>
-          </tr>
           <tr class="hl">
-            <td class="label">Curved glulam<br><span style="font-weight:400;font-size:11px;color:var(--text3)">arched, bent lamination</span></td>
-            <td class="verdict">Exports as tessellated mesh. No centerline, no radius. Machine cannot use.</td>
-            <td class="verdict">Curved axis + profile preserved in IFC. Machine-readable.</td>
-            <td class="cn"><span class="vchip vc-fail">Revit: fail</span><br><span class="vchip vc-ok" style="margin-top:4px">Tekla: ok</span></td>
-          </tr>
-          <tr>
-            <td class="label">Tapered beam<br><span style="font-weight:400;font-size:11px;color:var(--text3)">variable cross-section</span></td>
-            <td class="verdict">Taper done via void-cut family. Taper params lost on export — raw mesh only.</td>
-            <td class="verdict">Native tapered solid. Geometry exact and parametric.</td>
-            <td class="cn"><span class="vchip vc-fail">Revit: fail</span><br><span class="vchip vc-ok" style="margin-top:4px">Tekla: ok</span></td>
+            <td class="label">Straight glulam<br><span style="font-weight:400;font-size:11px;color:var(--text3)">rectangular section</span></td>
+            <td class="vd">Clean <code>IfcExtrudedAreaSolid</code>. Correct <code>IfcBeam</code> mapping.</td>
+            <td class="vd">Native timber member. Clean solid, correct type.</td>
+            <td class="cn"><span class="vchip vc-ok">Both ok</span></td>
           </tr>
           <tr class="hl">
             <td class="label">Notch / birdsmouth<br><span style="font-weight:400;font-size:11px;color:var(--text3)">seat cuts, rafter tails</span></td>
-            <td class="verdict">Void family required. Boolean unstable across instances. Non-manifold risk in IFC.</td>
-            <td class="verdict">Built-in joint catalog. Boolean stable. Clean solid in IFC.</td>
-            <td class="cn"><span class="vchip vc-fail">Revit: fail</span><br><span class="vchip vc-ok" style="margin-top:4px">Tekla: ok</span></td>
+            <td class="vd">Team-verified void cut. Manifold solid guaranteed before export.</td>
+            <td class="vd">Built-in joint catalog. Stable boolean. No manual workflow.</td>
+            <td class="cn"><span class="vchip vc-ok">Both ok</span><br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">Tekla less effort</span></td>
           </tr>
-          <tr>
-            <td class="label">CLT panel<br><span style="font-weight:400;font-size:11px;color:var(--text3)">layered, openings</span></td>
-            <td class="verdict">No native CLT object. Layer stack is visual only. Opening geometry unreliable on complex edge conditions.</td>
-            <td class="verdict">Layered object with real geometry per layer. Opening solid boolean clean.</td>
-            <td class="cn"><span class="vchip vc-fail">Revit: fail</span><br><span class="vchip vc-ok" style="margin-top:4px">Tekla: ok</span></td>
+          <tr class="hl">
+            <td class="label">CLT panel<br><span style="font-weight:400;font-size:11px;color:var(--text3)">flat, openings, edge</span></td>
+            <td class="vd">Single solid body with void-cut openings. Layer data is parametric only — no per-layer geometry.</td>
+            <td class="vd">Layered object with real geometry per layer. Opening boolean clean.</td>
+            <td class="cn"><span class="vchip vc-ok">Revit ok</span><br><span style="font-size:10px;color:var(--text3);font-family:var(--mono)">if single solid ok</span></td>
           </tr>
-          <tr>
+          <tr class="hl2">
+            <td class="label">Tapered beam<br><span style="font-weight:400;font-size:11px;color:var(--text3)">variable cross-section</span></td>
+            <td class="vd">Swept-blend family may export as clean <code>IfcSweptAreaSolid</code>. Void-cut taper likely falls back to <code>IfcFacetedBrep</code>. Construction method matters.</td>
+            <td class="vd">Native parametric tapered solid. Exact geometry. Always clean export.</td>
+            <td class="cn"><span class="vchip vc-test">Revit: test</span><br><span class="vchip vc-ok" style="margin-top:3px">Tekla: ok</span></td>
+          </tr>
+          <tr class="hl3">
+            <td class="label">Curved glulam<br><span style="font-weight:400;font-size:11px;color:var(--text3)">arched, bent arc</span></td>
+            <td class="vd">Curved instance visually correct. IFC export likely <code>IfcFacetedBrep</code> — axis and radius lost. Machine cannot extract profile.</td>
+            <td class="vd">Curved axis + profile preserved in IFC. Machine-readable centerline and cross-section.</td>
+            <td class="cn"><span class="vchip vc-fail">Revit: risk</span><br><span class="vchip vc-ok" style="margin-top:3px">Tekla: ok</span></td>
+          </tr>
+          <tr class="hl3">
             <td class="label">CLT step joint<br><span style="font-weight:400;font-size:11px;color:var(--text3)">panel-to-panel edge</span></td>
-            <td class="verdict">Must hand-model as Generic Model. No scalable workflow. Every element unique.</td>
-            <td class="verdict">Joint component with parametric step profile. Reusable across project.</td>
-            <td class="cn"><span class="vchip vc-fail">Revit: fail</span><br><span class="vchip vc-ok" style="margin-top:4px">Tekla: ok</span></td>
+            <td class="vd">Must hand-model with void cuts per instance. No reusable parametric workflow. Not scalable.</td>
+            <td class="vd">Parametric joint component. Reusable across project. Geometry consistent.</td>
+            <td class="cn"><span class="vchip vc-warn">Revit: hard</span><br><span class="vchip vc-ok" style="margin-top:3px">Tekla: ok</span></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- 03 Revised Scoring -->
+  <!-- 03 Scoring -->
   <div class="section">
-    <div class="sec-head"><span class="sec-n">03</span><h2>Revised Scoring — Geometry Focus</h2><div class="sec-rule"></div></div>
+    <div class="sec-head"><span class="sec-n">03</span><h2>Scoring — Fabrication-Grade Geometry Focus</h2><div class="sec-rule"></div></div>
     <div class="tbl-wrap">
       <table>
         <thead>
           <tr>
-            <th style="width:44%">Criteria</th>
-            <th style="text-align:center">Revit</th>
-            <th style="text-align:center">Revit + Dev</th>
-            <th style="text-align:center">Tekla</th>
+            <th style="width:40%">Criteria</th>
+            <th class="tc">Revit</th>
+            <th class="tc">Revit + Dev<br><span style="font-weight:400;font-size:9px;letter-spacing:0;text-transform:none">void ctrl + tooling</span></th>
+            <th class="tc">Tekla</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="hl">
-            <td><strong>Fabrication-grade geometry (complex members)</strong></td>
+          <tr>
+            <td>Geometry — straight members</td>
+            <td class="cn"><span class="shi">8</span><span class="bi" style="background:#1e7a3e;width:26px"></span></td>
+            <td class="cn"><span class="shi">8</span><span class="bi" style="background:#1e7a3e;width:26px"></span></td>
+            <td class="cn"><span class="shi">9</span><span class="bi" style="background:#1e7a3e;width:29px"></span></td>
+          </tr>
+          <tr class="hl2">
+            <td>Geometry — curved members <span style="font-family:var(--mono);font-size:10px;color:var(--purple)">needs test</span></td>
             <td class="cn"><span class="slo">2</span><span class="bi" style="background:#b83232;width:6px"></span></td>
             <td class="cn"><span class="slo">3</span><span class="bi" style="background:#b83232;width:10px"></span></td>
             <td class="cn"><span class="shi">9</span><span class="bi" style="background:#1e7a3e;width:29px"></span></td>
           </tr>
-          <tr class="hl">
-            <td><strong>IFC solid quality for cutting machine</strong></td>
-            <td class="cn"><span class="slo">2</span><span class="bi" style="background:#b83232;width:6px"></span></td>
-            <td class="cn"><span class="slo">3</span><span class="bi" style="background:#b83232;width:10px"></span></td>
+          <tr class="hl2">
+            <td>Geometry — tapered members <span style="font-family:var(--mono);font-size:10px;color:var(--purple)">needs test</span></td>
+            <td class="cn"><span class="smd">5</span><span class="bi" style="background:#8a6200;width:16px"></span></td>
+            <td class="cn"><span class="smd">6</span><span class="bi" style="background:#8a6200;width:19px"></span></td>
             <td class="cn"><span class="shi">9</span><span class="bi" style="background:#1e7a3e;width:29px"></span></td>
           </tr>
           <tr>
-            <td>Native timber joint / connection</td>
-            <td class="cn"><span class="slo">2</span><span class="bi" style="background:#b83232;width:6px"></span></td>
-            <td class="cn"><span class="slo">3</span><span class="bi" style="background:#b83232;width:10px"></span></td>
+            <td>Joint geometry reliability</td>
+            <td class="cn"><span class="slo">4</span><span class="bi" style="background:#b83232;width:13px"></span></td>
+            <td class="cn"><span class="shi">8</span><span class="bi" style="background:#1e7a3e;width:26px"></span></td>
             <td class="cn"><span class="shi">9</span><span class="bi" style="background:#1e7a3e;width:29px"></span></td>
           </tr>
           <tr>
             <td>IFC object type mapping accuracy</td>
-            <td class="cn"><span class="slo">3</span><span class="bi" style="background:#b83232;width:10px"></span></td>
-            <td class="cn"><span class="smd">6</span><span class="bi" style="background:#8a6200;width:19px"></span></td>
+            <td class="cn"><span class="smd">5</span><span class="bi" style="background:#8a6200;width:16px"></span></td>
+            <td class="cn"><span class="smd">8</span><span class="bi" style="background:#8a6200;width:26px"></span></td>
             <td class="cn"><span class="shi">9</span><span class="bi" style="background:#1e7a3e;width:29px"></span></td>
+          </tr>
+          <tr>
+            <td>Control over IFC output schema</td>
+            <td class="cn"><span class="slo">4</span><span class="bi" style="background:#b83232;width:13px"></span></td>
+            <td class="cn"><span class="shi">9</span><span class="bi" style="background:#1e7a3e;width:29px"></span></td>
+            <td class="cn"><span class="smd">5</span><span class="bi" style="background:#8a6200;width:16px"></span></td>
           </tr>
           <tr>
             <td>Shop drawing &amp; part numbering</td>
@@ -422,7 +362,7 @@
             <td class="cn"><span class="smd">5</span><span class="bi" style="background:#8a6200;width:16px"></span></td>
           </tr>
           <tr>
-            <td>Extensibility by dev team</td>
+            <td>Dev ecosystem &amp; extensibility</td>
             <td class="cn"><span class="smd">7</span><span class="bi" style="background:#8a6200;width:22px"></span></td>
             <td class="cn"><span class="shi">10</span><span class="bi" style="background:#1e7a3e;width:32px"></span></td>
             <td class="cn"><span class="slo">4</span><span class="bi" style="background:#b83232;width:13px"></span></td>
@@ -430,172 +370,239 @@
           <tr>
             <td>CNC-readiness if needed later</td>
             <td class="cn"><span class="slo">2</span><span class="bi" style="background:#b83232;width:6px"></span></td>
-            <td class="cn"><span class="smd">4</span><span class="bi" style="background:#8a6200;width:13px"></span></td>
+            <td class="cn"><span class="slo">3</span><span class="bi" style="background:#b83232;width:10px"></span></td>
             <td class="cn"><span class="shi">9</span><span class="bi" style="background:#1e7a3e;width:29px"></span></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="note-red">
-      <span class="ni ni-r">!</span>
-      <div class="nt-r">
-        Dev effort cannot fix Revit's geometry engine. Adding custom parameters or a smarter IFC exporter
-        does not change the fact that curved members tessellate, CLT layers have no real solid,
-        and void-cut joints are unstable. These are architectural limitations of how Revit builds geometry —
-        not configuration problems.
-      </div>
-    </div>
+    <p style="font-size:11px;color:var(--text3);margin-top:7px;font-family:var(--mono)">* Highlighted rows = scores change depending on test result for curved / tapered members</p>
   </div>
 
-  <!-- 04 Roadmap -->
+  <!-- 04 Roadmap both options -->
   <div class="section">
-    <div class="sec-head"><span class="sec-n">04</span><h2>Recommended Path — Tekla</h2><div class="sec-rule"></div></div>
+    <div class="sec-head"><span class="sec-n">04</span><h2>Implementation Roadmap</h2><div class="sec-rule"></div></div>
     <div class="two-col">
+
       <div class="card">
         <div class="card-head">
-          <span class="card-name" style="display:flex;align-items:center;gap:7px">
-            <span style="color:var(--green)">▶</span> Tekla as primary
-          </span>
-          <span class="badge b-green">Recommended</span>
+          <span class="card-name"><span style="color:var(--blue)">▶</span> Option A — Revit + Dev</span>
+          <span class="badge b-purple">Test-dependent</span>
+        </div>
+        <div class="step"><div class="sn">1</div><div>
+          <div class="st">Run geometry test — curved + tapered</div>
+          <div class="sd">Model one curved Structural Framing arc and one swept-blend tapered beam. Export IFC. Open in BIMvision — confirm geometry type is <code>IfcExtrudedAreaSolid</code> or <code>IfcSweptAreaSolid</code>, not <code>IfcFacetedBrep</code>. Send to factory for fabrication setup confirmation.</div>
+          <div class="tags"><span class="tag tt">Test first</span></div>
+        </div></div>
+        <div class="step"><div class="sn">2</div><div>
+          <div class="st">Configure IFC exporter mapping</div>
+          <div class="sd">Configure open-source IFC for Revit. Map Structural Framing categories to correct IFC types. Validate all member types export with expected object class.</div>
+          <div class="tags"><span class="tag td">Dev</span></div>
+        </div></div>
+        <div class="step"><div class="sn">3</div><div>
+          <div class="st">Build void cut workflow tooling</div>
+          <div class="sd">Dynamo script or add-in to assist placing, naming, and verifying void cuts per joint type. Solid integrity check flag before export. Reduces manual error at scale.</div>
+          <div class="tags"><span class="tag td">Dev</span></div>
+        </div></div>
+        <div class="step"><div class="sn">4</div><div>
+          <div class="st">Build data entry add-in</div>
+          <div class="sd">In-Revit UI for fabrication parameter input. Validation logic per member type. Saves to shared parameters, feeds into IFC export.</div>
+          <div class="tags"><span class="tag td">Dev</span></div>
+        </div></div>
+        <div class="step"><div class="sn">5</div><div>
+          <div class="st">Batch export + QA script + pilot</div>
+          <div class="sd">Automate IFC export per delivery package. QA script checks manifold solids, correct IFC types, required properties. Pilot on hardest member types first.</div>
+          <div class="tags"><span class="tag td">Dev</span><span class="tag tp">Process</span></div>
+        </div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <span class="card-name"><span style="color:var(--yellow)">▶</span> Option B — Tekla primary</span>
+          <span class="badge b-green">Geometry guaranteed</span>
         </div>
         <div class="step"><div class="sn">1</div><div>
           <div class="st">Diagnose the IFC readability issue</div>
-          <div class="sd">Export one curved glulam and one CLT panel with step joint from Tekla. Send to factory. Ask them to specify exactly what fails — is it geometry, property set naming, or their import software? Geometry from Tekla should be clean; if the issue is schema naming, that is fixable.</div>
-          <div class="tags"><span class="tag tp">Process</span></div>
+          <div class="sd">Export curved glulam + CLT step joint from Tekla. Send to factory. Ask them to specify exactly what fails — geometry error, property set naming, or their import software limitation. These are three different problems with different fixes.</div>
+          <div class="tags"><span class="tag tp">Process first</span></div>
         </div></div>
         <div class="step"><div class="sn">2</div><div>
-          <div class="st">Fix IFC schema if needed via Tekla API</div>
-          <div class="sd">If factory complains about property set names or structure — not geometry — Tekla .NET API can remap IFC export. Targeted fix, low dev effort compared to rebuilding in Revit.</div>
+          <div class="st">Fix IFC schema via Tekla API if needed</div>
+          <div class="sd">If issue is property set names or structure — not geometry — remap via Tekla .NET API. Targeted fix, lower dev effort than building a full Revit pipeline. If factory software itself cannot handle any Tekla IFC, investigate cadwork as a geometry translator.</div>
           <div class="tags"><span class="tag td">Dev</span></div>
         </div></div>
         <div class="step"><div class="sn">3</div><div>
           <div class="st">Establish Revit → Tekla coordination link</div>
-          <div class="sd">Keep Revit for multi-discipline coordination (Arch + MEP). Link model into Tekla as reference. Tekla is source-of-truth for all structural timber geometry and fabrication output.</div>
+          <div class="sd">Revit remains coordination model for Arch + MEP. Link into Tekla as spatial reference. Tekla is source-of-truth for all fabrication geometry. Define ownership boundary clearly.</div>
           <div class="tags"><span class="tag ti">Infra</span></div>
         </div></div>
         <div class="step"><div class="sn">4</div><div>
           <div class="st">Set up numbering rules from day one</div>
-          <div class="sd">Define assembly mark and part mark rules before modeling starts. Re-numbering after model changes is expensive — getting it right upfront avoids shop drawing chaos.</div>
+          <div class="sd">Assembly mark + part mark rules defined before modeling starts. Re-numbering after model changes is expensive — wrong rules cause shop drawing chaos.</div>
           <div class="tags"><span class="tag tp">Process</span></div>
         </div></div>
         <div class="step"><div class="sn">5</div><div>
-          <div class="st">Pilot with the hardest member types first</div>
-          <div class="sd">Don't pilot on simple straight members. Start with curved glulam and CLT step joint — if those export cleanly and factory confirms, everything simpler will also work.</div>
+          <div class="st">Pilot on hardest member types first</div>
+          <div class="sd">Start pilot with curved glulam and CLT step joint — not straight members. If those export cleanly and factory confirms, everything simpler will also work.</div>
           <div class="tags"><span class="tag tp">Process</span></div>
         </div></div>
       </div>
-      <div class="card">
-        <div class="card-head">
-          <span class="card-name" style="display:flex;align-items:center;gap:7px">
-            <span style="color:var(--yellow)">▶</span> Revit — limited role
-          </span>
-          <span class="badge b-yellow">Coordination only</span>
-        </div>
-        <div class="step"><div class="sn">1</div><div>
-          <div class="st">Retain Revit for coordination model</div>
-          <div class="sd">Revit still the best tool for Arch + MEP + Structural coordination, clash detection via Navisworks, and owner-facing deliverables. No geometry fabrication output from Revit.</div>
-          <div class="tags"><span class="tag ti">Infra</span></div>
-        </div></div>
-        <div class="step"><div class="sn">2</div><div>
-          <div class="st">Structural Framing as reference only</div>
-          <div class="sd">Revit timber members serve as spatial placeholders for coordination — centerline, clearances, service routes. Tekla is where the actual fabrication geometry lives.</div>
-          <div class="tags"><span class="tag tp">Process</span></div>
-        </div></div>
-        <div class="step"><div class="sn">3</div><div>
-          <div class="st">Dev focus: coordination tooling</div>
-          <div class="sd">Dev effort in Revit should target coordination workflows — clash reports, quantity takeoffs, specification sheets — not fabrication geometry output. That is Tekla's domain.</div>
-          <div class="tags"><span class="tag td">Dev</span></div>
-        </div></div>
-      </div>
+
     </div>
   </div>
 
-  <!-- 05 Dev Effort Estimate -->
+  <!-- 05 Dev Estimate -->
   <div class="section">
-    <div class="sec-head"><span class="sec-n">05</span><h2>Dev Effort Estimate — Tekla Pipeline (2 Developers + AI)</h2><div class="sec-rule"></div></div>
-    <p style="font-size:12.5px;color:var(--text2);margin-bottom:16px;line-height:1.65;">
-      Estimates assume <strong style="color:var(--text);font-weight:500">2 developers at ~50% allocation</strong> alongside regular project work,
-      with AI assistance (code generation, Tekla API reference, IFC schema lookup).
-      Tekla .NET API is more constrained than Revit's — AI helps most with boilerplate and IFC parsing logic.
+    <div class="sec-head"><span class="sec-n">05</span><h2>Dev Effort Estimate — 2 Developers + AI</h2><div class="sec-rule"></div></div>
+
+    <p style="font-size:12.5px;color:var(--text2);margin-bottom:20px;line-height:1.65;">
+      Both paths estimated. Assumes <strong style="color:var(--text);font-weight:500">2 developers at ~50% allocation</strong>
+      alongside regular project work, with AI assistance throughout.
+      IFC property/parameter work excluded — team already has this experience.
     </p>
-    <div class="tbl-wrap">
+
+    <div style="margin-bottom:10px">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;">Option A — Revit + Dev pipeline</span>
+    </div>
+    <div class="tbl-wrap" style="margin-bottom:20px">
       <table>
         <thead>
           <tr>
             <th style="width:26%">Deliverable</th>
             <th>Scope</th>
-            <th class="rc" style="text-align:right">Without AI</th>
-            <th class="rc" style="text-align:right">With AI</th>
-            <th class="rc" style="text-align:right">Effort</th>
+            <th class="tr">Without AI</th>
+            <th class="tr">With AI</th>
+            <th class="tr">Effort</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>IFC readability diagnosis</strong></td>
-            <td class="sm">Test export with factory, identify exact failure mode (geometry vs schema), document findings</td>
-            <td class="rn">2–3 days</td>
-            <td class="rn">2–3 days</td>
-            <td class="rn"><span class="chip c-lo">Low</span></td>
-          </tr>
-          <tr>
-            <td><strong>Tekla IFC export remapping</strong></td>
-            <td class="sm">If schema issue confirmed: remap property set names/structure via Tekla .NET API to match factory requirements</td>
-            <td class="rn">5–8 days</td>
-            <td class="rn">3–4 days</td>
-            <td class="rn"><span class="chip c-md">Medium</span></td>
-          </tr>
-          <tr>
-            <td><strong>Numbering rule setup</strong></td>
-            <td class="sm">Define and configure assembly mark + part mark rules in Tekla. Test across member types and model changes.</td>
-            <td class="rn">2–3 days</td>
+            <td><strong>Geometry test</strong></td>
+            <td class="sm">Curved + tapered export test, BIMvision check, factory confirmation</td>
+            <td class="rn">1–2 days</td>
             <td class="rn">1–2 days</td>
             <td class="rn"><span class="chip c-lo">Low</span></td>
           </tr>
           <tr>
-            <td><strong>Custom timber component</strong></td>
-            <td class="sm">If any joint type not in Tekla catalog: build parametric component via Tekla API. Per joint type.</td>
-            <td class="rn">4–6 days <span style="color:var(--text3)">/ type</span></td>
-            <td class="rn">2–4 days <span style="color:var(--text3)">/ type</span></td>
-            <td class="rn"><span class="chip c-md">Medium</span></td>
-          </tr>
-          <tr>
-            <td><strong>Revit ↔ Tekla link workflow</strong></td>
-            <td class="sm">Establish IFC or native link between Revit coordination model and Tekla. Define update cadence and ownership rules.</td>
-            <td class="rn">3–4 days</td>
+            <td><strong>IFC exporter config</strong></td>
+            <td class="sm">Configure IFC for Revit. Map member categories → correct IFC types. Validate all member types.</td>
+            <td class="rn">4–6 days</td>
             <td class="rn">2–3 days</td>
             <td class="rn"><span class="chip c-lo">Low</span></td>
           </tr>
           <tr>
+            <td><strong>Void cut tooling</strong></td>
+            <td class="sm">Dynamo or add-in for void cut placement, naming, solid integrity check before export</td>
+            <td class="rn">5–7 days</td>
+            <td class="rn">3–4 days</td>
+            <td class="rn"><span class="chip c-lo">Low</span></td>
+          </tr>
+          <tr>
+            <td><strong>Data entry add-in</strong></td>
+            <td class="sm">In-Revit UI, validation, saves to shared parameters. C# with Revit API.</td>
+            <td class="rn">8–12 days</td>
+            <td class="rn">4–6 days</td>
+            <td class="rn"><span class="chip c-md">Medium</span></td>
+          </tr>
+          <tr>
             <td><strong>Batch export + QA script</strong></td>
-            <td class="sm">Automate IFC export per delivery package. Validate solid integrity (manifold check), required properties present.</td>
+            <td class="sm">Auto export per delivery package. Manifold check, type check, required properties check.</td>
             <td class="rn">5–7 days</td>
             <td class="rn">3–4 days</td>
             <td class="rn"><span class="chip c-lo">Low</span></td>
           </tr>
           <tr>
             <td><strong>Pilot + iteration</strong></td>
-            <td class="sm">Run curved glulam + CLT step joint end-to-end. Factory feedback, 1–2 fix rounds, sign-off.</td>
+            <td class="sm">End-to-end on real project. Factory feedback. 1–2 fix rounds.</td>
             <td class="rn">6–8 days</td>
             <td class="rn">4–6 days</td>
             <td class="rn"><span class="chip c-md">Medium</span></td>
           </tr>
           <tr class="tot">
             <td><strong>Total</strong></td>
-            <td class="sm">Diagnosis → fixes → link → QA → pilot</td>
-            <td class="rn"><strong>27–39 dev-days</strong></td>
-            <td class="rn" style="color:var(--blue)"><strong>17–26 dev-days</strong></td>
-            <td class="rn">—</td>
+            <td class="sm">Assuming geometry test passes</td>
+            <td class="rn"><strong>29–42 dev-days</strong></td>
+            <td class="rn" style="color:var(--blue)"><strong>17–25 dev-days</strong></td>
+            <td class="rn">~4–6 wks</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="note-blue">
-      <span class="ni ni-b">AI</span>
-      <div class="nt-b">
-        <strong>2 developers at 50% allocation with AI:</strong> roughly <strong>4–7 weeks wall-clock</strong>.
-        Significantly less than the Revit pipeline option — and more importantly, the geometry problem is
-        actually solved rather than worked around. The biggest unknown is how many custom joint types
-        fall outside Tekla's catalog; budget 2–4 extra dev-days per type.
+
+    <div style="margin-bottom:10px">
+      <span style="font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;">Option B — Tekla pipeline</span>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:26%">Deliverable</th>
+            <th>Scope</th>
+            <th class="tr">Without AI</th>
+            <th class="tr">With AI</th>
+            <th class="tr">Effort</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>IFC readability diagnosis</strong></td>
+            <td class="sm">Test export with factory. Identify exact failure mode: geometry, schema, or factory software.</td>
+            <td class="rn">2–3 days</td>
+            <td class="rn">2–3 days</td>
+            <td class="rn"><span class="chip c-lo">Low</span></td>
+          </tr>
+          <tr>
+            <td><strong>Tekla IFC schema remap</strong></td>
+            <td class="sm">Remap Pset names/structure via Tekla .NET API to match factory requirements if schema issue confirmed.</td>
+            <td class="rn">5–8 days</td>
+            <td class="rn">3–4 days</td>
+            <td class="rn"><span class="chip c-md">Medium</span></td>
+          </tr>
+          <tr>
+            <td><strong>Custom joint component</strong></td>
+            <td class="sm">Any joint type not in Tekla catalog: build parametric component via Tekla API. Per type.</td>
+            <td class="rn">4–6 days/type</td>
+            <td class="rn">2–4 days/type</td>
+            <td class="rn"><span class="chip c-md">Medium</span></td>
+          </tr>
+          <tr>
+            <td><strong>Revit ↔ Tekla link</strong></td>
+            <td class="sm">IFC or native link setup. Update cadence. Ownership boundary between Revit coordination and Tekla fabrication.</td>
+            <td class="rn">3–4 days</td>
+            <td class="rn">2–3 days</td>
+            <td class="rn"><span class="chip c-lo">Low</span></td>
+          </tr>
+          <tr>
+            <td><strong>Batch export + QA script</strong></td>
+            <td class="sm">Automated IFC export per delivery set. Solid integrity and property check.</td>
+            <td class="rn">5–7 days</td>
+            <td class="rn">3–4 days</td>
+            <td class="rn"><span class="chip c-lo">Low</span></td>
+          </tr>
+          <tr>
+            <td><strong>Pilot + iteration</strong></td>
+            <td class="sm">Curved glulam + CLT step joint end-to-end. Factory sign-off.</td>
+            <td class="rn">6–8 days</td>
+            <td class="rn">4–6 days</td>
+            <td class="rn"><span class="chip c-md">Medium</span></td>
+          </tr>
+          <tr class="tot">
+            <td><strong>Total</strong></td>
+            <td class="sm">Diagnosis → fix → link → QA → pilot</td>
+            <td class="rn"><strong>25–36 dev-days</strong></td>
+            <td class="rn" style="color:var(--blue)"><strong>16–24 dev-days</strong></td>
+            <td class="rn">~4–6 wks</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note note-b">
+      <span class="ni ni-b">i</span>
+      <div class="nt nt-b">
+        Both paths land at similar total dev effort (~4–6 weeks). The difference is
+        <strong>risk profile</strong>: Option A effort depends on the geometry test passing for curved/tapered members.
+        Option B effort depends on resolving the factory IFC readability issue.
+        Whichever unknown is easier to de-risk should inform the choice.
       </div>
     </div>
   </div>
@@ -605,54 +612,57 @@
     <div class="sec-head"><span class="sec-n">06</span><h2>Conclusion</h2><div class="sec-rule"></div></div>
     <div class="concl">
       <div class="vrow">
-        <div class="vlbl">Decision</div>
+        <div class="vlbl">What changed</div>
         <div class="vtxt">
-          <strong>Tekla is the only viable option</strong> when the requirement is fabrication-grade geometry
-          for complex timber members — curved glulam, tapered beam, notched joints, CLT with step joint.
-          Revit's geometry engine cannot reliably produce clean IFC solids for these cases regardless of dev investment.
+          Team-controlled void cuts resolve the joint geometry problem in Revit.
+          The scope of uncertainty is now narrow:
+          <strong class="y">curved glulam and tapered beam IFC geometry only</strong>.
+          All other member types are viable in Revit + Structural Framing.
         </div>
       </div>
       <div class="vrow">
-        <div class="vlbl">Revit role</div>
+        <div class="vlbl">Deciding factor</div>
         <div class="vtxt">
-          Revit remains valuable as the <strong>coordination and multi-discipline model</strong>.
-          Timber members in Revit are spatial references only — not fabrication geometry.
-          Tekla is source-of-truth for anything going to the factory.
+          A single test determines which path to take:
+          <strong>does curved Structural Framing export as a clean parametric solid or a tessellated mesh?</strong>
+          This is 1–2 days of work. Everything else follows from the result.
         </div>
       </div>
       <div class="vrow">
-        <div class="vlbl">IFC issue</div>
+        <div class="vlbl">If Revit passes</div>
         <div class="vtxt">
-          The "Tekla IFC uneditable" complaint from the factory needs to be <strong>re-examined carefully</strong>.
-          If Tekla geometry is clean and correct, this is likely a schema naming issue fixable via Tekla API —
-          or a limitation of the factory's own import software.
-          <strong class="warn">Do not let this be the reason to choose Revit for fabrication geometry.</strong>
+          <strong class="g">Option A — full Revit pipeline.</strong>
+          Better dev ecosystem, better coordination workflow, full schema control.
+          Preferrable if the project has no curved members at all —
+          commit to Revit without needing the test.
         </div>
       </div>
       <div class="vrow">
-        <div class="vlbl">Dev focus</div>
+        <div class="vlbl">If Revit fails</div>
         <div class="vtxt">
-          Dev effort should go into: diagnosing and fixing the IFC schema issue, building any missing
-          joint components in Tekla, automating the export/QA pipeline, and tooling the
-          <strong>Revit ↔ Tekla coordination link</strong> — not trying to make Revit produce fabrication geometry.
+          <strong class="y">Option B — Tekla primary for fabrication.</strong>
+          Geometry is guaranteed for all member types including curved and tapered.
+          Revit stays as coordination model. The IFC readability issue with the factory
+          needs to be diagnosed and fixed — but this is a schema problem, not a geometry problem.
         </div>
       </div>
       <div class="vrow">
-        <div class="vlbl">Next actions</div>
+        <div class="vlbl">Tekla IFC issue</div>
         <div class="vtxt">
-          <strong>1.</strong> Export curved glulam + CLT step joint from Tekla → send to factory → get specific failure report.<br>
-          <strong>2.</strong> If geometry is clean: fix schema issue via Tekla API.<br>
-          <strong>3.</strong> If factory software cannot handle Tekla IFC at all: investigate cadwork or other intermediate tool as translator — still faster than rebuilding in Revit.<br>
-          <strong>4.</strong> Pilot on the hardest member types before scaling.
+          Do not treat this as a blocker for Option B without investigating.
+          <strong class="r">Clean geometry with a schema naming problem</strong> is categorically different from
+          <strong class="r">broken geometry</strong>. The former is fixable via Tekla API in days.
+          Verify which one it actually is before making a decision.
         </div>
       </div>
-    </div>
-    <div class="note-yellow">
-      <span class="ni ni-y">!</span>
-      <div class="nt-y">
-        If after investigation the factory truly cannot work with Tekla IFC and no fix is possible,
-        the fallback is a geometry translation step (Tekla → cadwork → machine format) rather than
-        remodeling in Revit. This preserves geometry integrity while solving the format compatibility problem.
+      <div class="vrow">
+        <div class="vlbl">Next action</div>
+        <div class="vtxt">
+          <strong>Two parallel tests, both 1–2 days:</strong><br>
+          <strong>1.</strong> Revit: export curved Structural Framing + swept-blend tapered beam → check geometry type in BIMvision.<br>
+          <strong>2.</strong> Tekla: export curved glulam + CLT step joint → send to factory → get specific failure report on what "uneditable" means.<br>
+          Results from both tests give a clear, evidence-based decision.
+        </div>
       </div>
     </div>
   </div>
