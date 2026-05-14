@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revit vs Tekla — CLT / Glulam Production Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #f5f4f0;
+    --surface:  #ffffff;
+    --surface2: #f9f8f5;
+    --border:   #e4e2da;
+    --border2:  #d0cec5;
+    --text:     #1a1917;
+    --text2:    #6b6860;
+    --text3:    #a8a69e;
+    --green:    #1e7a3e;
+    --green-bg: #edf7f1;
+    --green-br: #b8dfc7;
+    --red:      #b83232;
+    --red-bg:   #fdf0f0;
+    --red-br:   #f0c4c4;
+    --yellow:   #8a6200;
+    --yellow-bg:#fdf6e3;
+    --yellow-br:#e8d48a;
+    --blue:     #1a5ea8;
+    --blue-bg:  #edf3fc;
+    --blue-br:  #b3cef0;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.65;
+    min-height: 100vh;
+  }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding: 56px 32px 80px; }
+
+  /* Header */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: start;
+    border-bottom: 1.5px solid var(--border2);
+    padding-bottom: 32px;
+    margin-bottom: 52px;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: 300;
+    letter-spacing: -.025em;
+    color: var(--text);
+    line-height: 1.18;
+    margin-bottom: 14px;
+  }
+
+  h1 em { font-style: normal; font-family: var(--mono); font-weight: 500; color: var(--blue); }
+
+  .header-desc { font-size: 13px; color: var(--text2); max-width: 480px; line-height: 1.65; }
+
+  .header-pills { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; padding-top: 4px; }
+
+  .pill {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: .04em;
+    white-space: nowrap;
+  }
+
+  .pill-n { background: var(--surface2); border: 1px solid var(--border2); color: var(--text2); }
+  .pill-b { background: var(--blue-bg);  border: 1px solid var(--blue-br);  color: var(--blue); }
+
+  /* Section */
+  .section { margin-bottom: 52px; }
+
+  .sec-head { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+
+  .sec-n { font-family: var(--mono); font-size: 10px; color: var(--text3); width: 20px; }
+
+  h2 { font-size: 11px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: var(--text2); }
+
+  .sec-rule { flex: 1; height: 1px; background: var(--border); }
+
+  /* Cards */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 24px;
+  }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card-name { font-family: var(--mono); font-size: 15px; font-weight: 500; color: var(--text); }
+
+  .badge { font-family: var(--mono); font-size: 10px; padding: 3px 8px; border-radius: 4px; letter-spacing: .05em; }
+  .b-blue   { background: var(--blue-bg);   border: 1px solid var(--blue-br);   color: var(--blue); }
+  .b-yellow { background: var(--yellow-bg); border: 1px solid var(--yellow-br); color: var(--yellow); }
+  .b-green  { background: var(--green-bg);  border: 1px solid var(--green-br);  color: var(--green); }
+
+  .list-lbl { font-family: var(--mono); font-size: 9px; color: var(--text3); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 8px; }
+
+  ul.ilist { list-style: none; margin-bottom: 18px; }
+
+  ul.ilist li {
+    display: flex;
+    gap: 9px;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  ul.ilist li:last-child { border-bottom: none; }
+
+  .mk { font-family: var(--mono); font-size: 11px; flex-shrink: 0; width: 14px; padding-top: 2px; }
+  .mg { color: var(--green); }
+  .mr { color: var(--red); }
+  .my { color: var(--yellow); }
+
+  /* Score table */
+  .tbl-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+
+  table { width: 100%; border-collapse: collapse; }
+
+  th {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+
+  th.rc { text-align: right; }
+
+  td {
+    padding: 10px 14px;
+    font-size: 12.5px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text2);
+    vertical-align: top;
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  td.cn { text-align: center; font-family: var(--mono); font-size: 12px; }
+  td.rn { text-align: right; font-family: var(--mono); font-size: 12px; white-space: nowrap; }
+  td.sm { color: var(--text2); font-size: 12px; }
+
+  tr.hl td { background: #f0f4ff; }
+
+  .shi { color: var(--green); font-weight: 500; }
+  .smd { color: var(--yellow); font-weight: 500; }
+  .slo { color: var(--red); font-weight: 500; }
+
+  .bi { display: inline-block; height: 3px; border-radius: 2px; vertical-align: middle; margin-left: 5px; opacity: .5; }
+
+  /* Steps */
+  .step { display: flex; gap: 12px; margin-bottom: 15px; align-items: flex-start; }
+
+  .sn {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text3);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    width: 20px; height: 20px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .st  { font-size: 12.5px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+  .sd  { font-size: 12px; color: var(--text2); line-height: 1.55; }
+
+  .tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 5px; }
+
+  .tag { font-family: var(--mono); font-size: 9px; padding: 2px 7px; border-radius: 3px; letter-spacing: .04em; }
+  .td  { background: var(--blue-bg);   border: 1px solid var(--blue-br);   color: var(--blue); }
+  .tp  { background: var(--yellow-bg); border: 1px solid var(--yellow-br); color: var(--yellow); }
+  .ti  { background: var(--green-bg);  border: 1px solid var(--green-br);  color: var(--green); }
+
+  /* Effort chips */
+  .chip { display: inline-block; font-family: var(--mono); font-size: 10px; padding: 2px 7px; border-radius: 3px; }
+  .c-lo { background: var(--green-bg);  border: 1px solid var(--green-br);  color: var(--green); }
+  .c-md { background: var(--yellow-bg); border: 1px solid var(--yellow-br); color: var(--yellow); }
+  .c-hi { background: var(--red-bg);    border: 1px solid var(--red-br);    color: var(--red); }
+
+  tr.tot td { background: var(--surface2); font-weight: 500; border-top: 1px solid var(--border2); border-bottom: none; }
+
+  /* Note boxes */
+  .note-blue {
+    background: var(--blue-bg); border: 1px solid var(--blue-br);
+    border-radius: 8px; padding: 12px 16px; margin-top: 12px;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+
+  .note-yellow {
+    background: var(--yellow-bg); border: 1px solid var(--yellow-br);
+    border-radius: 8px; padding: 12px 16px; margin-top: 14px;
+    display: flex; gap: 10px;
+  }
+
+  .ni { font-family: var(--mono); font-size: 11px; flex-shrink: 0; padding-top: 1px; }
+  .ni-b { color: var(--blue); }
+  .ni-y { color: var(--yellow); }
+  .nt-b { font-size: 12px; color: #2a4a80; line-height: 1.6; }
+  .nt-y { font-size: 12px; color: #5a4400; line-height: 1.6; }
+
+  /* Conclusion */
+  .concl { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+
+  .vrow {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 16px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .vrow:last-child { border-bottom: none; }
+
+  .vlbl { font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: .06em; text-transform: uppercase; padding-top: 2px; }
+
+  .vtxt { font-size: 13px; color: var(--text); line-height: 1.65; }
+  .vtxt strong { font-weight: 500; color: var(--blue); }
+  .vtxt code {
+    font-family: var(--mono); font-size: 11px;
+    background: var(--surface2); border: 1px solid var(--border2);
+    padding: 1px 5px; border-radius: 3px; color: var(--text2);
+  }
+
+  /* Animate */
+  .section { opacity: 0; transform: translateY(10px); animation: up .35s ease forwards; }
+  .section:nth-child(1){animation-delay:.04s}
+  .section:nth-child(2){animation-delay:.09s}
+  .section:nth-child(3){animation-delay:.14s}
+  .section:nth-child(4){animation-delay:.19s}
+  .section:nth-child(5){animation-delay:.24s}
+  .section:nth-child(6){animation-delay:.29s}
+  @keyframes up { to { opacity:1; transform:translateY(0); } }
+
+  @media(max-width:640px){
+    .two-col{grid-template-columns:1fr;}
+    .header{grid-template-columns:1fr;}
+    .header-pills{flex-direction:row;align-items:flex-start;}
+    .vrow{grid-template-columns:1fr;gap:4px;}
+    h1{font-size:24px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Header -->
+  <header class="header">
+    <div>
+      <div class="eyebrow">BIM Software Analysis · Production Stage</div>
+      <h1>Revit vs <em>Tekla</em><br>for CLT &amp; Glulam</h1>
+      <p class="header-desc">
+        Comparative analysis for production-stage workflows: IFC export for fabrication, detailing,
+        and tooling development. Context: in-house dev team available, no BTL/BTLx CNC export required.
+      </p>
+    </div>
+    <div class="header-pills">
+      <span class="pill pill-n">Elements: CLT · Glulam</span>
+      <span class="pill pill-n">Output: IFC for factory</span>
+      <span class="pill pill-b">Dev team: 2 engineers + AI</span>
+    </div>
+  </header>
+
+  <!-- 01 Strengths & Weaknesses -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-n">01</span><h2>Strengths &amp; Weaknesses</h2><div class="sec-rule"></div></div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-head">
+          <span class="card-name">Revit</span>
+          <span class="badge b-blue">Autodesk</span>
+        </div>
+        <div class="list-lbl">Strengths</div>
+        <ul class="ilist">
+          <li><span class="mk mg">+</span>Strong API ecosystem (pyRevit, Dynamo, C# SDK) — dev team can ramp up quickly</li>
+          <li><span class="mk mg">+</span>Open-source IFC exporter (IFC for Revit) — full control over output schema</li>
+          <li><span class="mk mg">+</span>Flexible shared parameters — attach any fabrication data (layer sequence, grain direction, joint type) exactly as needed</li>
+          <li><span class="mk mg">+</span>Best-in-class multi-discipline coordination (Arch + Structural + MEP in one ecosystem)</li>
+          <li><span class="mk mg">+</span>IFC schema owned by your team — factory reads it without dependency on Tekla conventions</li>
+        </ul>
+        <div class="list-lbl">Weaknesses</div>
+        <ul class="ilist">
+          <li><span class="mk mr">−</span>No native timber joint tools — notch, tenon, lap joint require custom families or extensions</li>
+          <li><span class="mk mr">−</span>Part marking &amp; shop drawing numbering weaker than Tekla out-of-the-box</li>
+          <li><span class="mk my">~</span>Dev effort non-trivial: IFC Property Set Spec must be well-defined upfront to avoid rework</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <span class="card-name">Tekla</span>
+          <span class="badge b-yellow">Trimble</span>
+        </div>
+        <div class="list-lbl">Strengths</div>
+        <ul class="ilist">
+          <li><span class="mk mg">+</span>Native timber component catalog: CLT panel, glulam, dowel, timber bolt ready to use</li>
+          <li><span class="mk mg">+</span>Automatic numbering (assembly mark, part mark) — shop drawings production-ready natively</li>
+          <li><span class="mk mg">+</span>IFC4 export includes timber attributes by default (layer orientation, board profile, lay-up)</li>
+          <li><span class="mk mg">+</span>Future-proof for CNC: BTL/BTLX export native if workflow ever expands</li>
+        </ul>
+        <div class="list-lbl">Weaknesses</div>
+        <ul class="ilist">
+          <li><span class="mk mr">−</span>IFC output uses Tekla's own schema — factory partners report inability to edit in their software</li>
+          <li><span class="mk mr">−</span>Smaller API ecosystem, less documentation — deep customization harder for dev team</li>
+          <li><span class="mk mr">−</span>Weak multi-discipline coordination — typically requires linking from Revit, adding a workflow step</li>
+          <li><span class="mk my">~</span>Steeper learning curve if team is Revit-native</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 Score Matrix -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-n">02</span><h2>Criteria Scoring</h2><div class="sec-rule"></div></div>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:42%">Criteria</th>
+            <th style="text-align:center">Revit</th>
+            <th style="text-align:center">Revit + Dev</th>
+            <th style="text-align:center">Tekla</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>IFC quality (factory-readable)</td>
+            <td class="cn"><span class="slo">4</span><span class="bi" style="background:#b83232;width:13px"></span></td>
+            <td class="cn"><span class="shi">9</span><span class="bi" style="background:#1e7a3e;width:29px"></span></td>
+            <td class="cn"><span class="smd">6</span><span class="bi" style="background:#8a6200;width:19px"></span></td>
+          </tr>
+          <tr class="hl">
+            <td>Control over IFC output schema</td>
+            <td class="cn"><span class="slo">3</span><span class="bi" style="background:#b83232;width:10px"></span></td>
+            <td class="cn"><span class="shi">10</span><span class="bi" style="background:#1e7a3e;width:32px"></span></td>
+            <td class="cn"><span class="slo">4</span><span class="bi" style="background:#b83232;width:13px"></span></td>
+          </tr>
+          <tr>
+            <td>Fabrication parameters (lay-up, grain, joint)</td>
+            <td class="cn"><span class="slo">3</span><span class="bi" style="background:#b83232;width:10px"></span></td>
+            <td class="cn"><span class="shi">9</span><span class="bi" style="background:#1e7a3e;width:29px"></span></td>
+            <td class="cn"><span class="smd">7</span><span class="bi" style="background:#8a6200;width:22px"></span></td>
+          </tr>
+          <tr>
+            <td>Native timber joint / connection</td>
+            <td class="cn"><span class="slo">3</span><span class="bi" style="background:#b83232;width:10px"></span></td>
+            <td class="cn"><span class="smd">6</span><span class="bi" style="background:#8a6200;width:19px"></span></td>
+            <td class="cn"><span class="shi">9</span><span class="bi" style="background:#1e7a3e;width:29px"></span></td>
+          </tr>
+          <tr>
+            <td>Shop drawing &amp; part numbering</td>
+            <td class="cn"><span class="smd">5</span><span class="bi" style="background:#8a6200;width:16px"></span></td>
+            <td class="cn"><span class="smd">7</span><span class="bi" style="background:#8a6200;width:22px"></span></td>
+            <td class="cn"><span class="shi">9</span><span class="bi" style="background:#1e7a3e;width:29px"></span></td>
+          </tr>
+          <tr>
+            <td>Multi-discipline coordination</td>
+            <td class="cn"><span class="shi">9</span><span class="bi" style="background:#1e7a3e;width:29px"></span></td>
+            <td class="cn"><span class="shi">9</span><span class="bi" style="background:#1e7a3e;width:29px"></span></td>
+            <td class="cn"><span class="smd">5</span><span class="bi" style="background:#8a6200;width:16px"></span></td>
+          </tr>
+          <tr>
+            <td>Extensibility by dev team</td>
+            <td class="cn"><span class="smd">7</span><span class="bi" style="background:#8a6200;width:22px"></span></td>
+            <td class="cn"><span class="shi">10</span><span class="bi" style="background:#1e7a3e;width:32px"></span></td>
+            <td class="cn"><span class="slo">4</span><span class="bi" style="background:#b83232;width:13px"></span></td>
+          </tr>
+          <tr>
+            <td>CNC-readiness if needed later</td>
+            <td class="cn"><span class="slo">2</span><span class="bi" style="background:#b83232;width:6px"></span></td>
+            <td class="cn"><span class="smd">5</span><span class="bi" style="background:#8a6200;width:16px"></span></td>
+            <td class="cn"><span class="shi">9</span><span class="bi" style="background:#1e7a3e;width:29px"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:11px;color:var(--text3);margin-top:7px;font-family:var(--mono)">* Revit + Dev = Revit with custom shared parameters and a team-owned IFC export pipeline</p>
+  </div>
+
+  <!-- 03 Roadmap -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-n">03</span><h2>Implementation Roadmap</h2><div class="sec-rule"></div></div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-head">
+          <span class="card-name" style="display:flex;align-items:center;gap:7px"><span style="color:var(--blue)">▶</span> Option A — Revit + Dev</span>
+          <span class="badge b-blue">Recommended</span>
+        </div>
+        <div class="step"><div class="sn">1</div><div><div class="st">Define IFC Property Set Spec</div><div class="sd">Document all parameters needed by the factory: layer sequence, grain direction, thickness per layer, joint type, fire rating, treatment class. Deliver as a structured table before writing any code.</div><div class="tags"><span class="tag tp">Process</span></div></div></div>
+        <div class="step"><div class="sn">2</div><div><div class="st">Create standardized Shared Parameter file</div><div class="sd">Map spec 1:1 to Revit shared parameters. Attach to relevant categories: Structural Framing (glulam), Floor/Wall/Roof (CLT). Use fixed GUIDs to prevent reset across projects.</div><div class="tags"><span class="tag td">Dev</span></div></div></div>
+        <div class="step"><div class="sn">3</div><div><div class="st">Configure custom IFC exporter mapping</div><div class="sd">Fork or configure the open-source IFC for Revit exporter. Map shared parameters to agreed Pset_ structures. Validate output in BIMvision or Solibri before sending to factory.</div><div class="tags"><span class="tag td">Dev</span></div></div></div>
+        <div class="step"><div class="sn">4</div><div><div class="st">Build Revit Add-in for data entry</div><div class="sd">In-Revit UI for filling fabrication parameters with validation (range checks, inter-layer dependency). Reduces manual error, ensures complete data before export.</div><div class="tags"><span class="tag td">Dev</span></div></div></div>
+        <div class="step"><div class="sn">5</div><div><div class="st">QA pipeline + pilot project</div><div class="sd">Run one small project end-to-end: model → IFC export → factory confirms readability. Document all issues before scaling.</div><div class="tags"><span class="tag tp">Process</span></div></div></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <span class="card-name" style="display:flex;align-items:center;gap:7px"><span style="color:var(--yellow)">▶</span> Option B — Tekla</span>
+        </div>
+        <div class="step"><div class="sn">1</div><div><div class="st">Verify IFC output with the factory</div><div class="sd">Send a Tekla IFC sample, ask factory to identify exactly which fields fail and why. Distinguish schema errors from factory software limitations.</div><div class="tags"><span class="tag tp">Process</span></div></div></div>
+        <div class="step"><div class="sn">2</div><div><div class="st">Attempt fix via Tekla API</div><div class="sd">If the issue is property set naming or structure, Tekla .NET API can override IFC export mapping. Lower effort if only renaming/reformatting is needed.</div><div class="tags"><span class="tag td">Dev</span></div></div></div>
+        <div class="step"><div class="sn">3</div><div><div class="st">Set up Revit ↔ Tekla link</div><div class="sd">Use Revit as coordination model (Arch + MEP). Link IFC or native file into Tekla for detailing. Define clear ownership: who is source-of-truth for geometry per element type.</div><div class="tags"><span class="tag ti">Infra</span></div></div></div>
+        <div class="step"><div class="sn">4</div><div><div class="st">Standardize numbering &amp; mark rules</div><div class="sd">Tekla auto-numbering requires correct setup from day one (prefix, separator, sequence). Wrong rules cause re-numbering chaos when the model changes.</div><div class="tags"><span class="tag tp">Process</span></div></div></div>
+        <div class="step"><div class="sn">5</div><div><div class="st">Reassess after pilot</div><div class="sd">If IFC issues persist after step 2 and factory still can't read it → switch to Option A. Tekla retains advantage if a CNC workflow is activated in the future.</div><div class="tags"><span class="tag tp">Process</span></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 Dev Estimate -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-n">04</span><h2>Dev Effort Estimate — Option A (2 Developers + AI)</h2><div class="sec-rule"></div></div>
+    <p style="font-size:12.5px;color:var(--text2);margin-bottom:16px;line-height:1.65;">
+      Estimates assume <strong style="color:var(--text);font-weight:500">2 developers at ~50% allocation</strong> alongside regular project work,
+      with active AI assistance (Claude / Copilot for code generation, Revit API lookup, IFC schema reference).
+      AI assistance reduces pure coding time by ~40–50% but adds prompt-engineering and review overhead.
+    </p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:26%">Deliverable</th>
+            <th>Scope</th>
+            <th class="rc">Without AI</th>
+            <th class="rc">With AI</th>
+            <th class="rc">Effort</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>IFC Property Set Spec</strong></td>
+            <td class="sm">Workshop with factory + document all required Pset fields, naming conventions, data types</td>
+            <td class="rn">3–4 days</td>
+            <td class="rn">2–3 days</td>
+            <td class="rn"><span class="chip c-lo">Low</span></td>
+          </tr>
+          <tr>
+            <td><strong>Shared Parameter file</strong></td>
+            <td class="sm">Create .txt parameter file, assign to Revit categories, test round-trip with sample model</td>
+            <td class="rn">2–3 days</td>
+            <td class="rn">1 day</td>
+            <td class="rn"><span class="chip c-lo">Low</span></td>
+          </tr>
+          <tr>
+            <td><strong>IFC Exporter config</strong></td>
+            <td class="sm">Configure / fork IFC for Revit (open-source); map shared params → Pset_; validate in BIMvision &amp; Solibri</td>
+            <td class="rn">8–12 days</td>
+            <td class="rn">4–6 days</td>
+            <td class="rn"><span class="chip c-md">Medium</span></td>
+          </tr>
+          <tr>
+            <td><strong>Revit Add-in — data entry UI</strong></td>
+            <td class="sm">WPF panel inside Revit, field validation, save to element parameters. C# with Revit API</td>
+            <td class="rn">10–15 days</td>
+            <td class="rn">5–8 days</td>
+            <td class="rn"><span class="chip c-md">Medium</span></td>
+          </tr>
+          <tr>
+            <td><strong>Batch export &amp; naming logic</strong></td>
+            <td class="sm">Auto-generate part marks, batch IFC export per element set, folder structure for factory delivery</td>
+            <td class="rn">5–7 days</td>
+            <td class="rn">3–4 days</td>
+            <td class="rn"><span class="chip c-lo">Low</span></td>
+          </tr>
+          <tr>
+            <td><strong>QA validation tool</strong></td>
+            <td class="sm">Script to check IFC output completeness: all required Psets present, no null critical fields, valid enumerations</td>
+            <td class="rn">4–6 days</td>
+            <td class="rn">2–3 days</td>
+            <td class="rn"><span class="chip c-lo">Low</span></td>
+          </tr>
+          <tr>
+            <td><strong>Pilot project + iteration</strong></td>
+            <td class="sm">1 real project run-through, factory feedback, 1–2 rounds of fixes, finalize spec and code</td>
+            <td class="rn">8–10 days</td>
+            <td class="rn">6–8 days</td>
+            <td class="rn"><span class="chip c-md">Medium</span></td>
+          </tr>
+          <tr>
+            <td><strong>Documentation &amp; onboarding</strong></td>
+            <td class="sm">Usage guide for modelers, parameter reference sheet, export checklist</td>
+            <td class="rn">3–4 days</td>
+            <td class="rn">1–2 days</td>
+            <td class="rn"><span class="chip c-lo">Low</span></td>
+          </tr>
+          <tr class="tot">
+            <td><strong>Total</strong></td>
+            <td class="sm">Full pipeline: spec → tools → pilot → docs</td>
+            <td class="rn"><strong>43–61 dev-days</strong></td>
+            <td class="rn" style="color:var(--blue)"><strong>24–35 dev-days</strong></td>
+            <td class="rn">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="note-blue">
+      <span class="ni ni-b">AI</span>
+      <div class="nt-b">
+        <strong>2 developers at 50% allocation with AI assistance:</strong> total wall-clock time roughly
+        <strong>6–9 weeks</strong> — achievable within a single project cycle.
+        AI accelerates boilerplate generation the most (Revit API wrappers, IFC schema parsing, WPF layouts).
+        The real bottleneck shifts to <em>spec clarity</em> and <em>factory feedback loops</em>, not coding speed.
+        Budget 1–2 extra weeks for each round of spec changes from the factory side.
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 Conclusion -->
+  <div class="section">
+    <div class="sec-head"><span class="sec-n">05</span><h2>Conclusion</h2><div class="sec-rule"></div></div>
+    <div class="concl">
+      <div class="vrow">
+        <div class="vlbl">Short-term</div>
+        <div class="vtxt">
+          Given <strong>in-house dev team + IFC as primary output + factory unable to edit Tekla IFC</strong>,
+          Option A (Revit + custom pipeline) has the higher success probability.
+          The team owns the output schema; factory partners are not locked into Tekla conventions.
+        </div>
+      </div>
+      <div class="vrow">
+        <div class="vlbl">Long-term</div>
+        <div class="vtxt">
+          If <code>BTL / BTLX</code> export for CNC becomes necessary, or if deep timber joint detailing is required at scale,
+          consider adding Tekla as a <strong>dedicated detailing layer</strong> linked from Revit.
+          The two tools are complementary, not mutually exclusive.
+        </div>
+      </div>
+      <div class="vrow">
+        <div class="vlbl">Key risk</div>
+        <div class="vtxt">
+          Option A success depends heavily on the quality of the <strong>IFC Property Set Spec</strong> defined upfront.
+          Spec changes mid-development multiply rework cost significantly.
+          Align with the factory on required fields and naming <em>before</em> writing any code.
+        </div>
+      </div>
+      <div class="vrow">
+        <div class="vlbl">Next actions</div>
+        <div class="vtxt">
+          <strong>1.</strong> Meet with the factory — confirm exactly which IFC fields they need and in what format.<br>
+          <strong>2.</strong> Write the Property Set Spec as a shared table (Excel or Notion).<br>
+          <strong>3.</strong> Pilot one simple glulam element end-to-end before committing the full pipeline.<br>
+          <strong>4.</strong> Assign one dev as IFC pipeline owner to maintain schema consistency.
+        </div>
+      </div>
+    </div>
+    <div class="note-yellow">
+      <span class="ni ni-y">!</span>
+      <div class="nt-y">
+        The "Tekla IFC uneditable" issue may originate from the factory's software, not Tekla itself.
+        Worth verifying before ruling out Option B entirely — if only property set renaming is needed,
+        a Tekla API fix is faster than building the entire Revit pipeline from scratch.
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
